@@ -1,0 +1,93 @@
+ Twoapproaches exist for optimizing performance on F1. Structured loss min
+imization incorporates the performance metric into the loss function and then
+ optimizes during training. In contrast, plug-in rules convert the numerical out
+puts of a classi er into optimal predictions [5]. In this paper, we highlight the
+ latter scenario to di erentiate between the beliefs of a system and the predictions
+ selected to optimize alternative metrics. In the multilabel case, we show that the
+ same beliefs can produce markedly dissimilar optimally thresholded predictions
+ depending upon the choice of averaging method.
+ That F1 is asymmetric in the positive and negative class is well-known. Given
+ complemented predictions and actual labels, F1 may award a di erent score.
+ It also generally known that micro F1 is a ected less by performance on rare
+ labels, while Macro-F1 weighs the F1 of on each label equally [11]. In this pa
+per, we show how these properties are manifest in the optimal decision-making
+ thresholds and introduce a theorem to describe that threshold. Additionally,
+ we demonstrate that given an uninformative classi er, optimal thresholding to
+ maximize F1 predicts all instances positive regardless of the base rate.
+ While F1 is widely used, some of its properties are not widely recognized.
+ In particular, when choosing predictions to maximize the expectation of F1 for
+ a batch of examples, each prediction depends not only on the probability that
+ the label applies to that example, but also on the distribution of probabilities
+ for all other examples in the batch. We quantify this dependence in Theorem 1,
+ where we derive an expression for optimal thresholds. The dependence makes it
+ di cult to relate predictions that are optimally thresholded for F1 to a systems
+ predicted probabilities.
+ We show that the di erence in F1 score between perfect predictions and
+ optimally thresholded random guesses depends strongly on the base rate. As
+ a result, assuming optimal thresholding and a classi er outputting calibrated
+ probabilities, predictions on rare labels typically gets a score between close to
+ zero and one, while scores on common labels will always be high. In this sense,
+ macro average F1 can be argued not to weigh labels equally, but actually to give
+ greater weight to performance on rare labels.
+ As a case study, we consider tagging articles in the biomedical literature with
+ MeSH terms, a controlled vocabulary of 26,853 labels. These labels have hetero
+geneously distributed base rates. We show that if the predictive features for rare
+ labels are lost (because of feature selection or another cause) then the optimal
+ threshold to maximize macro F1 leads to predicting these rare labels frequently.
+ For the case study application, and likely for similar ones, this behavior is far
+ from desirable.
+ 2 De nitions of Performance Metrics
+ Consider binary classi cation in the single or multilabel setting. Given training
+ data of the form x1y1
+ xnyn where each xi is a feature vector of
+ dimension d and each yi is a binary vector of true labels of dimension m, a
+ probabilistic classi er outputs a model which speci es the conditional probability
+Thresholding Classi ers to Maximize F1 Score
+ Actual Positive Actual Negative
+ Predicted Positive
+ Predicted Negative
+ tp
+ fn
+ fp
+ tn
+ Fig.1: Confusion Matrix
+ 3
+ of each label applying to each instance given the feature vector. For a batch of
+ data of dimension n d, the model outputs an n m matrix C of probabilities.
+ In the single-label setting, m = 1 and C is an n 1 matrix, i.e. a column vector.
+ Adecision rule D(C) : Rn m 
+01 n mconverts a matrix of probabilities
+ C to binary predictions P. The gold standard G Rn m represents the true
+ values of all labels for all instances in a given batch. A performance metric M
+ assigns a score to a prediction given a gold standard:
+ M(PG): 01 n m 01 n m R [01]
+ The counts of true positives tp, false positives fp, false negatives fn, and true
+ negatives tn are represented via a confusion matrix (Figure 1).
+ Precision p = tp (tp + fp) is the fraction of all positive predictions that are
+ true positives, while recall r = tp (tp+fn) is the fraction of all actual positives
+ that are predicted positive. By de nition the F1 score is the harmonic mean of
+ precision and recall: F1 = 2 (1 r + 1 p). By substitution, F1 can be expressed
+ as a function of counts of true positives, false positives and false negatives:
+ F1 =
+ 2tp
+ 2tp +fp+fn
+ (1)
+ The harmonic mean expression for F1 is unde ned when tp = 0, but the trans
+lated expression is de ned. This di erence does not impact the results below.
+ 2.1 Basic Properties of F1
+ Before explaining optimal thresholding to maximize F1, we rst discuss some
+ properties of F1. For any xed number of actual positives in the gold standard,
+ only two of the four entries in the confusion matrix (Figure 1) vary independently.
+ This is because the number of actual positives is equal to the sum tp+fn while
+ the number of actual negatives is equal to the sum tn + fp. A second basic
+ property of F1 is that it is non-linear in its inputs. Speci cally, xing the number
+ fp, F1 is concave as a function of tp (Figure 2). By contrast, accuracy is a linear
+ function of tp and tn (Figure 3).
+ As mentioned in the introduction, F1 is asymmetric. By this, we mean that
+ the score assigned to a prediction P given gold standard G can be arbitrarily
+ di erent from the score assigned to a complementary prediction Pc given com
+plementary gold standard Gc. This can be seen by comparing Figure 2 with
+ Figure 5. This asymmetry is problematic when both false positives and false
+ negatives are costly. For example, F1 has been used to evaluate the classi cation
+ of tumors as benign or malignant [1], a domain where both false positives and
+ false negatives have considerable costs.

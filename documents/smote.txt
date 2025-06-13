@@ -1,0 +1,45 @@
+ Adataset is imbalanced if the classes are not approximately equally represented. Imbalance
+ on the order of 100 to 1 is prevalent in fraud detection and imbalance of up to 100,000 to
+ c
+ 2002 AI Access Foundation and Morgan Kaufmann Publishers. All rights reserved.
+Chawla, Bowyer, Hall & Kegelmeyer
+ 1 has been reported in other applications (Provost & Fawcett, 2001). There have been
+ attempts to deal with imbalanced datasets in domains such as fraudulent telephone calls
+ (Fawcett & Provost, 1996), telecommunications management (Ezawa, Singh, & Norton,
+ 1996), text classification (Lewis & Catlett, 1994; Dumais, Platt, Heckerman, & Sahami,
+ 1998; Mladeni´ c & Grobelnik, 1999; Lewis & Ringuette, 1994; Cohen, 1995a) and detection
+ of oil spills in satellite images (Kubat, Holte, & Matwin, 1998).
+ The performance of machine learning algorithms is typically evaluated using predictive
+ accuracy. However, this is not appropriate when the data is imbalanced and/or the costs of
+ different errors vary markedly. As an example, consider the classification of pixels in mam
+mogram images as possibly cancerous (Woods, Doss, Bowyer, Solka, Priebe, & Kegelmeyer,
+ 1993). A typical mammography dataset might contain 98% normal pixels and 2% abnormal
+ pixels. A simple default strategy of guessing the majority class would give a predictive ac
+curacy of 98%. However, the nature of the application requires a fairly high rate of correct
+ detection in the minority class and allows for a small error rate in the majority class in
+ order to achieve this. Simple predictive accuracy is clearly not appropriate in such situ
+ations. The Receiver Operating Characteristic (ROC) curve is a standard technique for
+ summarizing classifier performance over a range of tradeoffs between true positive and false
+ positive error rates (Swets, 1988). The Area Under the Curve (AUC) is an accepted tradi
+tional performance metric for a ROC curve (Duda, Hart, & Stork, 2001; Bradley, 1997; Lee,
+ 2000). The ROC convex hull can also be used as a robust method of identifying potentially
+ optimal classifiers (Provost & Fawcett, 2001). If a line passes through a point on the convex
+ hull, then there is no other line with the same slope passing through another point with a
+ larger true positive (TP) intercept. Thus, the classifier at that point is optimal under any
+ distribution assumptions in tandem with that slope.
+ The machine learning community has addressed the issue of class imbalance in two ways.
+ One is to assign distinct costs to training examples (Pazzani, Merz, Murphy, Ali, Hume, &
+ Brunk, 1994; Domingos, 1999). The other is to re-sample the original dataset, either by over
+sampling the minority class and/or under-sampling the majority class (Kubat & Matwin,
+ 1997; Japkowicz, 2000; Lewis & Catlett, 1994; Ling & Li, 1998). Our approach (Chawla,
+ Bowyer, Hall, & Kegelmeyer, 2000) blends under-sampling of the majority class with a
+ special form of over-sampling the minority class. Experiments with various datasets and
+ the C4.5 decision tree classifier (Quinlan, 1992), Ripper (Cohen, 1995b), and a Naive Bayes
+ Classifier show that our approach improves over other previous re-sampling, modifying loss
+ ratio, and class priors approaches, using either the AUC or ROC convex hull.
+ Section 2 gives an overview of performance measures. Section 3 reviews the most
+ closely related work dealing with imbalanced datasets. Section 4 presents the details of
+ our approach. Section 5 presents experimental results comparing our approach to other
+ re-sampling approaches. Section 6 discusses the results and suggests directions for future
+ work.
+ 2. Performance Measure
