@@ -9,6 +9,6 @@ This project implements a research assistant tool that allows users to upload an
 ![image](https://github.com/user-attachments/assets/95de57e2-8cb5-449e-a2f3-2a603003947d)
 
 
-TOOLS USED
+TOOLS USED TO BUILD RAG SYSTEM
 
 ![image](https://github.com/user-attachments/assets/20e05a33-29dc-4a16-8cb8-b58e649aeff3)
