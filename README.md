@@ -12,3 +12,12 @@ This project implements a research assistant tool that allows users to upload an
 TOOLS USED TO BUILD RAG SYSTEM
 
 ![image](https://github.com/user-attachments/assets/20e05a33-29dc-4a16-8cb8-b58e649aeff3)
+
+
+
+
+
+
+______The working model of RAG SYSTEM_____
+
+https://github.com/user-attachments/assets/845fef12-210f-41d7-b40c-71c31fd1a9c8
